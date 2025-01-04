@@ -1,9 +1,15 @@
 package com.qa.utility;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import com.qa.pageLayer.CourseVideoPage;
 import com.qa.testBase.Testbase;
 
 public class SleepClass extends Testbase
 {
+	CourseVideoPage videopage=new CourseVideoPage(); 
 	public static void sleepBySpecificTime(int usertime) throws InterruptedException
 	{
 		long sleeptime=(usertime +2);
@@ -71,5 +77,19 @@ public class SleepClass extends Testbase
 		        System.out.println("Invalid time format");
 		        return null;
 		    }
+		}
+		
+		
+		public  LinkedHashMap<String, Integer> getBeforeAfterVideoTime()
+		{ 
+			LinkedHashMap<String, Integer> timedetails=new LinkedHashMap<String, Integer>();
+			String getvideoTime = videopage.getVideoTime();
+			String afterVideoTime = getTimeAfterSlash(getvideoTime);
+			String beforeVideoTime = getTimeBeforeSlash(getvideoTime);
+			int totalSecondsBefore = convertToSeconds(beforeVideoTime);
+			int totalSecondsAfter = convertToSeconds(afterVideoTime);
+			timedetails.put("TimeCompletedOnVideo",  totalSecondsBefore);
+			timedetails.put("TotalVideoTime",  totalSecondsAfter);
+			return timedetails;
 		}
 }

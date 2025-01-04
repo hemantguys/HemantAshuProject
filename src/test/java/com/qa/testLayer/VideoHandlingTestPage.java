@@ -6,20 +6,22 @@ import com.qa.utility.SleepClass;
 
 public class VideoHandlingTestPage extends Testbase
 {
+	static CourseVideoPage videopage=new CourseVideoPage();
 	public static void VideoHandlingOption() throws InterruptedException
 	{
 	
-		CourseVideoPage videopage=new CourseVideoPage();
-		videopage.clickPlayButton();
+
 		Thread.sleep(1000);
+		//playbuttonlogic();
+		videopage.clickPlayButton();
 		videopage.clickOnSpeedDotOnVideo();
 		Thread.sleep(1000);
 		videopage.clickPlaybackSpeedButton();
 		Thread.sleep(1000);
 		videopage.ChoosePlaySpeed();
-	//	Thread.sleep(1000);
-		//videopage.clickPlayButton();
-		String getvideoTime = videopage.getVideoTime();
+		Thread.sleep(1000);
+		playbuttonlogic();
+	/*	String getvideoTime = videopage.getVideoTime();
 		
 		String timeAfterSlash=SleepClass.getTimeAfterSlash(getvideoTime);
 
@@ -29,6 +31,21 @@ public class VideoHandlingTestPage extends Testbase
 		
 		// Now you can send this time to another method
 	//	SleepClass.sleepBySpecificTime(totalSeconds);
+*/
+	}
+
+	public static void playbuttonlogic()
+	{
+		String text= videopage.getPlayButtonText();
+	//	boolean playButtonDisplayed = videopage.checkVideoPlayButtonDisplayed();
+	//	boolean pauseButtonDisplayed = videopage.checkPauseVideoButtonDisplayed();
+	//	boolean replayButtonDisplayed = videopage.checkReplayVideoButtonDisplayed();
+
+		if (text.equalsIgnoreCase("play_arrow"))
+		{
+			// If play button is displayed, click it to play the video
+			videopage.clickPlayButton();
+		}
 
 	}
 	

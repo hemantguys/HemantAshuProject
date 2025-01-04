@@ -7,6 +7,7 @@ import com.qa.pageLayer.CourseVideoPage;
 import com.qa.pageLayer.Quiz_1_Page;
 import com.qa.testBase.Testbase;
 import com.qa.utility.FinalAssessment;
+import com.qa.utility.NextbuttonHandling;
 
 
 public class FinalQuizpage extends Testbase
@@ -14,10 +15,11 @@ public class FinalQuizpage extends Testbase
 	Quiz_1_Page quiz_1=new Quiz_1_Page();
 	CourseVideoPage videopage=new CourseVideoPage();
 	FinalAssessment assessment=new FinalAssessment();
+	NextbuttonHandling handling = new NextbuttonHandling();
 	public void Final_Summary_Page() throws InterruptedException
 	{
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(2000);
+		handling.handleNextButtonIfMaduleLocked();
 		Thread.sleep(1000);
 		quiz_1.Click_StartGradedAssessmentButton();
 	}

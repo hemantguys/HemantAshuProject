@@ -1,8 +1,11 @@
 package com.qa.testLayer;
 
+import java.util.LinkedHashMap;
+
 import com.qa.pageLayer.CourseVideoPage;
 import com.qa.pageLayer.Quiz_1_Page;
 import com.qa.testBase.Testbase;
+import com.qa.utility.NextbuttonHandling;
 import com.qa.utility.SleepClass;
 
 public class Quiz2 extends Testbase
@@ -11,17 +14,16 @@ public class Quiz2 extends Testbase
 	{
 		Quiz_1_Page quiz_1=new Quiz_1_Page();
 		CourseVideoPage videopage=new CourseVideoPage();
-		System.out.println("Session started for Part 1");
+		NextbuttonHandling handling=new NextbuttonHandling();
+		System.out.println("---------------------Session 2 started ----------------------");
 		SleepClass sleepClass=new SleepClass(); //1
 		VideoHandlingTestPage handlingTestPage=new VideoHandlingTestPage();
 		handlingTestPage.VideoHandlingOption();
 		Thread.sleep(2000);
-String getvideoTime = videopage.getVideoTime();
-		
-		String afterVideoTime = sleepClass.getTimeAfterSlash(getvideoTime);
-		String beforeVideoTime = sleepClass.getTimeBeforeSlash(getvideoTime);
-		int totalSecondsBefore = SleepClass.convertToSeconds(beforeVideoTime);
-		int totalSecondsAfter = SleepClass.convertToSeconds(afterVideoTime)+2;
+		LinkedHashMap<String, Integer> timedetails=new LinkedHashMap<String, Integer>();
+		timedetails=sleepClass.getBeforeAfterVideoTime();
+		int totalSecondsAfter=timedetails.get("TotalVideoTime");
+		int totalSecondsBefore=timedetails.get("TimeCompletedOnVideo");
 		int i=totalSecondsAfter-totalSecondsBefore;
 		while(totalSecondsAfter>totalSecondsBefore)
 		{	
@@ -32,39 +34,60 @@ String getvideoTime = videopage.getVideoTime();
 			} 
 			i-=1;
 			totalSecondsBefore+=1;
+			if(totalSecondsBefore%15==0)
+			{
+				timedetails=sleepClass.getBeforeAfterVideoTime();
+				totalSecondsAfter=timedetails.get("TotalVideoTime");
+				totalSecondsBefore=timedetails.get("TimeCompletedOnVideo");
+				System.out.println("...............Waiting time updated........ ");
+			}
 		}
+	/*	Thread.sleep(2000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickPreviousbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickPreviousbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickPreviousbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickNextbutton_For_all_Page();
+		Thread.sleep(1000);
+		videopage.clickStart_test_session_1();  */
 		Thread.sleep(2000);
-		videopage.clickNextbutton_For_all_Page();
+		System.out.println("Video Completed");
+		handling.handleNextButtonIfMaduleLocked();
+		System.out.println("Document 1 Started");
+		handling.handleNextButtonIfMaduleLocked();
+		System.out.println("Document 1 Completed");
+		handling.handleNextButtonIfMaduleLocked();
 		Thread.sleep(1000);
-		videopage.clickPreviousbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickPreviousbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickPreviousbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickStart_test_session_1();
-		System.out.println("Session started to Quiz 2");
+		videopage.clickStart_test_session_1(); 
+		System.out.println("Quiz 2 Started");
 		
 		//Quiz 2
 		Thread.sleep(1000);
 		quiz_1.Click_Quiz_2_Ques_1();
 		videopage.clickNextbutton_For_all_Page();
+		System.out.println("Question 1 attempted succssefuly ");
 		Thread.sleep(2000);
 		Quiz_1_Page.Get_Input_AndClick_Quiz_Option("Save a document");
 		quiz_1.Click_Quiz_1_SubmitButton();
+		System.out.println("Question 2 attempted succssefuly ");
+		
 		Thread.sleep(2000);
 		quiz_1.Click_Quiz_1_BackToCourseButton();	
-
+		System.out.println("Quiz 2 Completed successfully");
+		System.out.println("----------------Session 2 Completed successfully---------------------");
+		
 	}
 
 }

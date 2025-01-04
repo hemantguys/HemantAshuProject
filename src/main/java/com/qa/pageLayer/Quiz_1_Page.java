@@ -46,11 +46,18 @@ public class Quiz_1_Page extends Testbase{
 		Quiz_1_BackToCourseButton.click();
 	}
 	
-	@FindBy(xpath  = "//button[@Name='Download certificate']") private WebElement DownloadCertificateButton;
-	public void ClickDownloadCertificateButton()
-	{
-		DownloadCertificateButton.click();
-	}
+	 private By downloadCertificateButton = By.xpath("//button[@Name='Download certificate']"); // Update with actual locator
+	//@FindBy(xpath  = "//button[@Name='Download certificate']") private WebElement DownloadCertificateButton;
+	 public void ClickDownloadCertificateButton() 
+	 {
+	        try {
+	            WebElement downloadButton = driver.findElement(downloadCertificateButton);
+	            downloadButton.click();
+	            System.out.println("Download Certificate button clicked.");
+	        } catch (Exception e) {
+	            System.out.println("Error clicking Download Certificate button: " + e.getMessage());
+	        }
+	 }
 	
 	@FindBy(xpath  = "//a[text()='Close and exit']") private WebElement CloseAndExitAfterDownloadCertificate;
 	public void ClickCloseAndExitAfterDownloadCertificateButton()

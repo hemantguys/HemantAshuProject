@@ -1,9 +1,13 @@
 package com.qa.testLayer;
 
 import com.qa.pageLayer.CourseVideoPage;
+
+import java.util.LinkedHashMap;
+
 import org.openqa.selenium.JavascriptExecutor;
 import com.qa.pageLayer.Quiz_1_Page;
 import com.qa.testBase.Testbase;
+import com.qa.utility.NextbuttonHandling;
 import com.qa.utility.SleepClass;
 
 public class Quiz1 extends Testbase
@@ -12,22 +16,16 @@ public class Quiz1 extends Testbase
 	{
 		Quiz_1_Page quiz_1=new Quiz_1_Page();
 		CourseVideoPage videopage=new CourseVideoPage();
-		System.out.println("Session started for Part 1");
+		NextbuttonHandling handling = new NextbuttonHandling();
+		System.out.println("----------------------Session 1 started -----------------------");
 		SleepClass sleepClass=new SleepClass(); //1
-		VideoHandlingTestPage handlingTestPage=new VideoHandlingTestPage();
-		// Skip the video by setting its time to the maximum
-		//JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		//jsExecutor.executeScript("document.querySelector('video').currentTime = document.querySelector('video').duration;");
-		// Wait for a bit before navigating away
-       // Thread.sleep(2000); 
+		VideoHandlingTestPage handlingTestPage=new VideoHandlingTestPage(); 
 		handlingTestPage.VideoHandlingOption();
 		Thread.sleep(1000);
-		String getvideoTime = videopage.getVideoTime();
-		
-		String afterVideoTime = sleepClass.getTimeAfterSlash(getvideoTime);
-		String beforeVideoTime = sleepClass.getTimeBeforeSlash(getvideoTime);
-		int totalSecondsBefore = SleepClass.convertToSeconds(beforeVideoTime);
-		int totalSecondsAfter = SleepClass.convertToSeconds(afterVideoTime)+2;
+		LinkedHashMap<String, Integer> timedetails=new LinkedHashMap<String, Integer>();
+		timedetails=sleepClass.getBeforeAfterVideoTime();
+		int totalSecondsAfter=timedetails.get("TotalVideoTime");
+		int totalSecondsBefore=timedetails.get("TimeCompletedOnVideo");
 		int i=totalSecondsAfter-totalSecondsBefore;
 		while(totalSecondsAfter>totalSecondsBefore)
 		{	
@@ -38,31 +36,37 @@ public class Quiz1 extends Testbase
 			} 
 			i-=1;
 			totalSecondsBefore+=1;
+			if(totalSecondsBefore%15==0)
+			{
+				timedetails=sleepClass.getBeforeAfterVideoTime();
+				totalSecondsAfter=timedetails.get("TotalVideoTime");
+				totalSecondsBefore=timedetails.get("TimeCompletedOnVideo");
+				i=totalSecondsAfter-totalSecondsBefore;
+				System.out.println("...............Waiting time updated........ ");
+			}
 		}
+		Thread.sleep(2000);
+		System.out.println("Video Completed");
+		handling.handleNextButtonIfMaduleLocked();
+		System.out.println("Document 1 Started");
+		handling.handleNextButtonIfMaduleLocked();
+		System.out.println("Document 1 Completed");
 		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickPreviousbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickPreviousbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickNextbutton_For_all_Page();
-		Thread.sleep(1000);
-		videopage.clickStart_test_session_1();
-		System.out.println("Session started to test 1");
+		videopage.clickStart_test_session_1(); 
+		System.out.println("Quiz 1 Started");
 		
 		//Quiz 1
 		Thread.sleep(1000);
 		quiz_1.Click_Quiz_1_Ques_1();
-		quiz_1.Click_Quiz_1_NextButton();
+		videopage.clickNextbutton_For_all_Page();
+		System.out.println("Question 1 attempted succssefuly ");
 		Thread.sleep(1000);
 		quiz_1.Click_Quiz_1_Ques_2();
 		quiz_1.Click_Quiz_1_SubmitButton();
+		System.out.println("Question 2 attempted succssefuly ");
 		Thread.sleep(2000);
 		quiz_1.Click_Quiz_1_BackToCourseButton();
+		System.out.println("Quiz 1 Completed successfully");
+		System.out.println("----------------Session 1 Completed successfully---------------------");
 	}
 }

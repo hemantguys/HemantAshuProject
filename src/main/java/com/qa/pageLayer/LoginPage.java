@@ -20,13 +20,13 @@ public class LoginPage extends Testbase
 
 	
 	
-	public void EnterUsername()
+	public void EnterUsername(String username)
 	{
-		usernameTextBox.sendKeys("ashiish.verma+harpal1@gmail.com");
+		usernameTextBox.sendKeys(username);
 	}
-	public void EnterPassword()
+	public void EnterPassword(String password)
 	{
-		passwordTextBox.sendKeys("Verma011");
+		passwordTextBox.sendKeys(password);
 	}
 	public void ClickSignInButton() {
 		singInButton.click();

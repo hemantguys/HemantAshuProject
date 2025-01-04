@@ -6,7 +6,7 @@
       <class name="com.qa.testLayer.Schools_My_P2e_EndToEnd">
         <methods>
           <include name="tearDown"/>
-          <include name="e2e_main_test"/>
+          <include name="e2e_main_test" invocation-numbers="0 1 2"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.qa.testLayer.Schools_My_P2e_EndToEnd -->
