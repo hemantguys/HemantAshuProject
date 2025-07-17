@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="E:/ashish projec/HemantAshuProject/HemantAshuProject/src/test/java/com/qa/testLayer/Schools_My_P2e_EndToEnd.java"><classes><class name="com.qa.testLayer.Schools_My_P2e_EndToEnd"><methods><include name="e2e_main_test"/></methods></class></classes></test></suite>
