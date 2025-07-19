@@ -16,10 +16,8 @@ public class ReadWritefromExcel2 {
 
     public static String filePath = System.getProperty("user.dir") + java.io.File.separator +
             "src" + java.io.File.separator +
-            "main" + java.io.File.separator +
-            "java" + java.io.File.separator +
-            "com" + java.io.File.separator +
-            "qa" + java.io.File.separator +
+            "test" + java.io.File.separator +
+            "resources" + java.io.File.separator +
             "testData" + java.io.File.separator +
             "Book1.xlsx";
    public String sheet1 = "Sheet1";
