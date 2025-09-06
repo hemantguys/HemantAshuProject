@@ -12,6 +12,10 @@ public class Quiz8 extends Testbase
 {
 	public void Quiz_8_test_fun() throws InterruptedException 
 	{
+		System.out.println("Hello");
+		System.out.println("Hello");
+		System.out.println("Hello");
+
 		Quiz_1_Page quiz_1=new Quiz_1_Page();
 		CourseVideoPage videopage=new CourseVideoPage();
 		SleepClass sleepClass=new SleepClass(); //1
