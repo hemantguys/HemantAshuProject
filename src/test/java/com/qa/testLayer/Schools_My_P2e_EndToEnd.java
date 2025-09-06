@@ -1,7 +1,6 @@
 package com.qa.testLayer;
 
 import org.testng.annotations.Test;
-import com.qa.pageLayer.*;
 import com.qa.testBase.Testbase;
 import com.qa.utility.ReadWritefromExcel2;
 import java.util.Map;
@@ -43,20 +42,25 @@ public class Schools_My_P2e_EndToEnd extends Testbase
 	    finalQuizpage.Final_Quiz();
 		System.out.println("Hemant");
 	    // Write "Completed" status to the Excel sheet
-	    String sheetName = "Sheet1";  // Define the sheet name (make it configurable if needed)
+	    String sheetName = System.getProperty("excel.sheetName", "Sheet1"); // Sheet name is now configurable via system property
 	    int rowNo = -1;
 
+
+		System.out.println("Row Number from Excel Data: " + loginData.get("RowNumber"));
 	    try {
 	        if (loginData.containsKey("RowNumber")) {
 	            rowNo = Integer.parseInt(loginData.get("RowNumber"));
 	        }
-	    } catch (NumberFormatException e) {
-	        System.out.println("RowNumber not found or invalid in data, skipping status write.");
-	    }
-
-	    if (rowNo != -1) {
-	        ReadWritefromExcel2.writeTestStatus(sheetName, rowNo, "Status", "Completed");
+	        // Write "Completed" status to the Excel sheet
+	        // (Assuming ReadWritefromExcel2.writeData is the method used)
+			ReadWritefromExcel2.writeTestStatus(sheetName, rowNo, "Status", "Completed");
 			ReadWritefromExcel2.writeTestStatus(sheetName, rowNo, "Flag", "N");
+	    } catch (NumberFormatException e) {
+	        System.err.println("Invalid row number format: " + loginData.get("RowNumber"));
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        System.err.println("Error writing to Excel: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	}
 }
